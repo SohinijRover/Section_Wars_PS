@@ -34,9 +34,9 @@ const BOARD_SQUARES = 5;     // chess: squares in the mini board strip
 
 /* Captions shown under each scene */
 const CAPTIONS = {
-  gun: "Loading the chamber…",
-  swords: "Crossing swords…",
-  chess: "Making the move…",
+  gun: "Lock and Load …",
+  swords: "Sharpen the Swords…",
+  chess: "Opening Gambit …",
 };
 
 export default function Loader({ onFinish }) {
