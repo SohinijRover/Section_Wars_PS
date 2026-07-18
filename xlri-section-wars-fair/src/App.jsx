@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import Loader from "./components/Loader";
 import CustomCursor from "./components/CustomCursor";
 import ParticleField from "./components/ParticleField";
-import MusicPlayer from "./components/MusicPlayer";
+// import MusicPlayer from "./components/MusicPlayer";
 import Hero from "./components/Hero";
 import BMSection from "./components/BMSection";
 import HRMSection from "./components/HRMSection";
@@ -42,7 +42,7 @@ export default function App() {
 
       {/* UI chrome */}
       <CustomCursor />
-      <MusicPlayer />
+      {/* <MusicPlayer /> */}
 
       {/* Page content — single vertical scroll */}
       <main>

@@ -2,7 +2,8 @@
    HERO — festive full-screen opener with bunting + sunburst
    ============================================================ */
 .hero {
-  --mx: 0; /* set by useMouseParallax (-1 … 1) */
+  --mx: 0;
+  /* set by useMouseParallax (-1 … 1) */
   --my: 0;
   position: relative;
   min-height: 100vh;
@@ -18,16 +19,19 @@
 .hero__sunburst {
   position: absolute;
   inset: -40%;
-  background: repeating-conic-gradient(
-    rgba(245, 166, 35, 0.12) 0deg 10deg,
-    transparent 10deg 20deg
-  );
+  background: repeating-conic-gradient(rgba(245, 166, 35, 0.12) 0deg 10deg,
+      transparent 10deg 20deg);
   animation: sunburst-spin 70s linear infinite;
   transform: translate(calc(var(--mx) * -25px), calc(var(--my) * -25px));
   will-change: transform;
 }
+
 @keyframes sunburst-spin {
-  to { rotate: 360deg; } /* separate property so parallax translate survives */
+  to {
+    rotate: 360deg;
+  }
+
+  /* separate property so parallax translate survives */
 }
 
 /* ---------- Bunting flags along the top ---------- */
@@ -40,8 +44,10 @@
   justify-content: center;
   gap: 6px;
   padding-top: 4px;
-  border-top: 6px solid var(--c-maroon); /* the "string" */
+  border-top: 6px solid var(--c-maroon);
+  /* the "string" */
 }
+
 .hero__flag {
   width: clamp(22px, 4vw, 42px);
   height: clamp(30px, 5vw, 54px);
@@ -50,9 +56,15 @@
   transform-origin: top center;
   animation: flag-sway 2.6s ease-in-out infinite alternate;
 }
+
 @keyframes flag-sway {
-  from { transform: rotate(-4deg); }
-  to   { transform: rotate(4deg); }
+  from {
+    transform: rotate(-4deg);
+  }
+
+  to {
+    transform: rotate(4deg);
+  }
 }
 
 /* ---------- Content layer (light parallax) ---------- */
@@ -81,26 +93,47 @@
   margin: 1.2rem 0;
   color: var(--c-red);
 }
+
 .hero__title-line {
   display: block;
   text-shadow: var(--glow-text);
   animation: rise-in 1s var(--ease-bounce) 0.3s both;
 }
+
 /* "WARS" pops in teal and does a gentle carnival wobble forever */
 .hero__title-line--pop {
   color: var(--c-teal);
   text-shadow: 4px 4px 0 var(--c-marigold);
   animation: rise-in 1s var(--ease-bounce) 0.5s both,
-             jolly-wobble 4s ease-in-out 2s infinite;
+    jolly-wobble 4s ease-in-out 2s infinite;
 }
+
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(60px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes jolly-wobble {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  25%      { transform: rotate(-1.2deg) scale(1.015); }
-  75%      { transform: rotate(1.2deg) scale(1.015); }
+
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(-1.2deg) scale(1.015);
+  }
+
+  75% {
+    transform: rotate(1.2deg) scale(1.015);
+  }
 }
 
 .hero__subtitle {
@@ -124,13 +157,16 @@
   color: var(--c-cream);
   background: var(--c-red);
   border: 3px solid var(--c-maroon);
-  border-radius: 999px;                 /* pill = friendly */
-  box-shadow: 0 6px 0 var(--c-maroon);  /* chunky "press me" depth */
+  border-radius: 999px;
+  /* pill = friendly */
+  box-shadow: 0 6px 0 var(--c-maroon);
+  /* chunky "press me" depth */
   position: relative;
   overflow: hidden;
   transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease;
   animation: rise-in 0.9s var(--ease-cinematic) 0.95s both;
 }
+
 .btn-fair::before {
   content: "";
   position: absolute;
@@ -139,17 +175,22 @@
   transform: translateX(-120%);
   transition: transform 0.6s ease;
 }
+
 .btn-fair:hover {
   transform: translateY(-3px);
   box-shadow: 0 9px 0 var(--c-maroon), var(--glow-soft);
 }
+
 .btn-fair:hover::before {
   transform: translateX(120%);
 }
+
 .btn-fair:active {
-  transform: translateY(3px);           /* satisfying button press */
+  transform: translateY(3px);
+  /* satisfying button press */
   box-shadow: 0 2px 0 var(--c-maroon);
 }
+
 .btn-fair:focus-visible {
   outline: 3px solid var(--c-teal);
   outline-offset: 4px;
@@ -159,7 +200,7 @@
 .hero__scroll-hint {
   position: absolute;
   bottom: 2rem;
-  left: 50%;
+  left: 49%;
   transform: translateX(-50%);
   display: grid;
   justify-items: center;
@@ -171,6 +212,7 @@
   color: var(--c-ink-soft);
   animation: rise-in 1s ease 1.6s both;
 }
+
 .hero__scroll-line {
   width: 3px;
   height: 44px;
@@ -178,6 +220,11 @@
   background: linear-gradient(var(--c-red), transparent);
   animation: scroll-pulse 1.8s ease-in-out infinite;
 }
+
 @keyframes scroll-pulse {
-  50% { transform: scaleY(0.55); transform-origin: top; opacity: 0.5; }
+  50% {
+    transform: scaleY(0.55);
+    transform-origin: top;
+    opacity: 0.5;
+  }
 }
