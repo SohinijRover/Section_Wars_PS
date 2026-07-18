@@ -1,0 +1,45 @@
+/* ============================================================
+   CUSTOM CURSOR — red dot + trailing marigold ring
+   (JS behaviour unchanged from the dark edition)
+   ============================================================ */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 50%;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--c-red);
+  box-shadow: 0 2px 6px rgba(192, 57, 43, 0.5);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 2px solid rgba(245, 166, 35, 0.9);
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+    border-color 0.25s ease, background 0.25s ease;
+}
+/* Hovering something interactive: ring grows + fills with a soft marigold */
+.cursor-ring--active {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-color: var(--c-teal);
+  background: rgba(245, 166, 35, 0.18);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}

@@ -1,0 +1,38 @@
+/* ============================================================
+   DESIGN TOKENS — Fair / Mela edition.
+   Palette inspired by the MAXI Fair (maxi-xlri.in) branding:
+   cream canvas, festive deep red, marigold yellow, teal accent.
+   If you have the exact hex codes from the site, replace them
+   HERE ONLY — every component reads from these tokens.
+   ============================================================ */
+:root {
+  /* Palette */
+  --c-cream:    #fff4e0;   /* warm canvas background            */
+  --c-paper:    #fffaf0;   /* card surfaces                     */
+  --c-red:      #c0392b;   /* festive deep red (primary)        */
+  --c-maroon:   #8e1f1f;   /* darker red for depth/borders      */
+  --c-marigold: #f5a623;   /* marigold yellow (accent/glow)     */
+  --c-teal:     #0e7c7b;   /* teal accent (secondary)           */
+  --c-ink:      #3b2314;   /* warm dark brown for text          */
+  --c-ink-soft: #8a6f5c;   /* muted body text                   */
+
+  /* Typography — playful circus-poster pairing */
+  --font-display: "Alfa Slab One", serif;  /* chunky fairground headlines */
+  --font-accent:  "Baloo 2", sans-serif;   /* rounded friendly labels     */
+  --font-body:    "Baloo 2", sans-serif;   /* body & UI text              */
+
+  /* Reusable glows/shadows (warm & sunny instead of ominous) */
+  --glow-soft:   0 6px 18px rgba(245, 166, 35, 0.35);
+  --glow-strong: 0 0 0 3px rgba(245, 166, 35, 0.55), 0 10px 30px rgba(192, 57, 43, 0.3);
+  --glow-text:   3px 3px 0 var(--c-marigold);   /* poster-style offset shadow */
+
+  /* Motion */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* springy, jolly    */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-duration: 0.8s;
+
+  /* Layout */
+  --content-max: 1200px;
+  --section-pad: clamp(4rem, 10vw, 8rem);
+  --radius: 18px; /* rounded corners everywhere = friendlier feel */
+}

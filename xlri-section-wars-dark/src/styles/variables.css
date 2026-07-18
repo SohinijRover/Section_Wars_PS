@@ -1,0 +1,32 @@
+/* ============================================================
+   DESIGN TOKENS — single source of truth for the whole site.
+   Change a color/font here and it updates everywhere.
+   ============================================================ */
+:root {
+  /* Palette — black / charcoal / blood red / white */
+  --c-black:    #000000;
+  --c-charcoal: #111111;
+  --c-blood:    #7a0000;   /* deep blood red (surfaces, gradients)   */
+  --c-crimson:  #8b0000;   /* brighter red (glows, borders, accents) */
+  --c-ember:    #ff2a2a;   /* hottest red — used ONLY for glow cores */
+  --c-white:    #ffffff;
+  --c-grey:     #9a9a9a;   /* muted body text */
+
+  /* Typography */
+  --font-display: "Bebas Neue", sans-serif; /* huge cinematic headlines   */
+  --font-accent:  "Cinzel", serif;          /* eyebrows, labels, "luxury" */
+  --font-body:    "Oswald", sans-serif;     /* paragraphs & UI text       */
+
+  /* Reusable glow shadows (kept as tokens so they stay consistent) */
+  --glow-soft:   0 0 18px rgba(139, 0, 0, 0.55);
+  --glow-strong: 0 0 10px rgba(255, 42, 42, 0.9), 0 0 40px rgba(139, 0, 0, 0.7);
+  --glow-text:   0 0 12px rgba(255, 42, 42, 0.45), 0 0 45px rgba(139, 0, 0, 0.6);
+
+  /* Motion */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1); /* slow, expensive feel */
+  --reveal-duration: 0.9s;
+
+  /* Layout */
+  --content-max: 1200px;
+  --section-pad: clamp(4rem, 10vw, 8rem);
+}

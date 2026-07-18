@@ -1,0 +1,123 @@
+/* ============================================================
+   LOADER — revolver cylinder → title stamp → fade to page
+   ============================================================ */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 60%, rgba(122, 0, 0, 0.25), transparent 60%),
+    var(--c-black);
+  transition: opacity 0.6s ease;
+}
+.loader--exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader__stage {
+  display: grid;
+  place-items: center;
+  gap: 1.4rem;
+  text-align: center;
+  animation: loader-fade-in 0.5s ease both;
+}
+@keyframes loader-fade-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* --- Revolver cylinder --- */
+.loader__cylinder {
+  width: clamp(140px, 26vw, 200px);
+  animation: cylinder-spin 2.3s var(--ease-cinematic) both; /* spins + settles */
+  filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.6));
+}
+@keyframes cylinder-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(720deg); } /* two full dramatic rotations */
+}
+
+.cylinder__body {
+  fill: var(--c-charcoal);
+  stroke: #333;
+  stroke-width: 2;
+}
+.cylinder__axis {
+  fill: #000;
+  stroke: #444;
+  stroke-width: 2;
+}
+.cylinder__chamber {
+  fill: #050505;
+  stroke: #3a3a3a;
+  stroke-width: 1.5;
+}
+/* Bullets pop in one by one with a red glow */
+.cylinder__bullet {
+  fill: var(--c-crimson);
+  opacity: 0;
+  animation: bullet-load 0.3s ease forwards;
+}
+@keyframes bullet-load {
+  from { opacity: 0; r: 2; }
+  to   { opacity: 1; r: 7; filter: drop-shadow(0 0 6px var(--c-ember)); }
+}
+
+.loader__caption {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  animation: caption-pulse 1.4s ease-in-out infinite;
+}
+@keyframes caption-pulse {
+  50% { opacity: 0.4; }
+}
+
+/* --- Title stamp --- */
+.loader__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 7rem);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  text-shadow: var(--glow-text);
+  animation: title-stamp 0.5s var(--ease-cinematic) both;
+}
+.loader__title span {
+  display: block;
+  color: var(--c-ember);
+}
+@keyframes title-stamp {
+  from { opacity: 0; transform: scale(1.6); filter: blur(8px); }
+  to   { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+.loader__tagline {
+  font-family: var(--font-accent);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--c-grey);
+  animation: loader-fade-in 0.6s 0.25s ease both;
+}
+
+/* --- Smoke rising behind everything --- */
+.loader__smoke {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 40% at 50% 100%,
+    rgba(122, 0, 0, 0.3),
+    transparent 70%
+  );
+  animation: smoke-rise 3.8s ease-out both;
+}
+@keyframes smoke-rise {
+  from { transform: translateY(30%); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}

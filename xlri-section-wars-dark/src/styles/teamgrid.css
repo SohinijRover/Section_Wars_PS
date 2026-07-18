@@ -1,0 +1,151 @@
+/* ============================================================
+   TEAM GRID — shared by BM & HRM sections
+   ============================================================ */
+.team-grid {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--section-pad);
+}
+
+.team-grid__header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.team-grid__eyebrow {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--c-crimson);
+  margin-bottom: 0.8rem;
+}
+
+.team-grid__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+}
+
+/* Responsive card grid:
+   auto-fit + minmax → 4-across on desktop, 2 on tablet, 1 on phones,
+   with no media queries needed for the columns themselves. */
+.team-grid__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+  justify-items: center;
+}
+
+/* ---------- Card ---------- */
+.team-card {
+  width: 100%;
+  max-width: 300px;
+}
+
+.team-card__frame {
+  position: relative;
+  aspect-ratio: 1 / 1; /* the requested square photo card */
+  border: 1px solid #2a2a2a;
+  background: var(--c-charcoal);
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+/* Placeholder face of the card (swap for <img> later) */
+.team-card__photo {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.4rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(122, 0, 0, 0.22), transparent 65%),
+    repeating-linear-gradient(45deg, #141414 0 12px, #101010 12px 24px);
+  transition: transform 0.6s var(--ease-cinematic);
+}
+
+.team-card__letter {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 9vw, 6.5rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 25px rgba(139, 0, 0, 0.8);
+}
+
+.team-card__hint {
+  font-family: var(--font-accent);
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+}
+
+/* ---------- Hover choreography ---------- */
+@media (hover: hover) {
+  .team-card__frame:hover {
+    border-color: var(--c-ember);
+    box-shadow: var(--glow-strong);       /* the red glowing border */
+    transform: translateY(-6px);
+  }
+  .team-card__frame:hover .team-card__photo {
+    transform: scale(1.07);               /* slow cinematic zoom */
+  }
+  .team-card__frame:hover .team-card__corner {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  .team-card:hover .team-card__section::after {
+    transform: scaleX(1);                 /* underline sweeps in */
+  }
+}
+
+/* Scope-style corner brackets that lock in on hover */
+.team-card__corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--c-ember);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+.team-card__corner--tl {
+  top: 10px; left: 10px;
+  border-right: none; border-bottom: none;
+  transform: translate(-8px, -8px);
+}
+.team-card__corner--br {
+  bottom: 10px; right: 10px;
+  border-left: none; border-top: none;
+  transform: translate(8px, 8px);
+}
+
+/* ---------- Label under the photo ---------- */
+.team-card__label {
+  margin-top: 0.9rem;
+  text-align: center;
+}
+.team-card__section {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+.team-card__section::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--c-ember);
+  box-shadow: var(--glow-soft);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-cinematic);
+}

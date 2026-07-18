@@ -1,0 +1,210 @@
+/* ============================================================
+   LOADER — Fair edition, multi-scene "game reel"
+   gun loading → swords clinking → chess knight → title
+   All colors come from the fair palette tokens.
+   ============================================================ */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1.4rem;
+  background: var(--c-cream);
+  transition: opacity 0.6s ease;
+  overflow: hidden;
+}
+.loader--exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Rotating sunburst rays behind every scene — circus poster feel */
+.loader__sunburst {
+  position: absolute;
+  inset: -60%;
+  background: repeating-conic-gradient(
+    rgba(245, 166, 35, 0.14) 0deg 12deg,
+    transparent 12deg 24deg
+  );
+  animation: sunburst-rotate 40s linear infinite;
+  pointer-events: none;
+}
+@keyframes sunburst-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Every scene fades/pops in when it mounts */
+.loader__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 1.2rem;
+  text-align: center;
+  animation: stage-in 0.4s var(--ease-bounce) both;
+}
+@keyframes stage-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.loader__scene-svg {
+  width: clamp(160px, 30vw, 230px);
+  filter: drop-shadow(0 10px 20px rgba(192, 57, 43, 0.25));
+}
+
+/* ============ Scene 1: revolver ============ */
+.revolver__spinner {
+  transform-origin: 60px 60px;
+  animation: revolver-spin 1.7s var(--ease-cinematic) both;
+}
+@keyframes revolver-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(540deg); }
+}
+.revolver__body    { fill: var(--c-paper); stroke: var(--c-maroon); stroke-width: 3; }
+.revolver__axis    { fill: var(--c-maroon); }
+.revolver__chamber { fill: var(--c-cream); stroke: var(--c-maroon); stroke-width: 2; }
+/* Bullets pop in one by one — marigold with a red rim, festive not grim */
+.revolver__bullet {
+  fill: var(--c-marigold);
+  stroke: var(--c-red);
+  stroke-width: 2;
+  opacity: 0;
+  animation: bullet-pop 0.25s var(--ease-bounce) forwards;
+}
+@keyframes bullet-pop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============ Scene 2: swords clink ============ */
+.sword__blade { fill: var(--c-teal); stroke: #0a5d5c; stroke-width: 1.5; }
+.sword__guard { fill: var(--c-marigold); }
+.sword__grip  { fill: var(--c-maroon); }
+
+/* Each sword pivots near its grip and swings in twice → two clinks.
+   Keyframes: swing in → bounce apart → swing in again → hold. */
+.sword--left {
+  transform-origin: 30px 88px;
+  animation: swing-left 1.6s ease-in-out both;
+}
+.sword--right {
+  transform-origin: 130px 88px;
+  animation: swing-right 1.6s ease-in-out both;
+}
+@keyframes swing-left {
+  0%   { transform: rotate(-55deg); }
+  22%  { transform: rotate(0deg); }   /* clink #1 */
+  40%  { transform: rotate(-18deg); } /* bounce apart */
+  62%  { transform: rotate(0deg); }   /* clink #2 */
+  100% { transform: rotate(0deg); }
+}
+@keyframes swing-right {
+  0%   { transform: rotate(55deg); }
+  22%  { transform: rotate(0deg); }
+  40%  { transform: rotate(18deg); }
+  62%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Spark star flashes exactly on the two clink moments (22% and 62%) */
+.clash-spark {
+  transform-origin: 80px 22px;
+  animation: spark-flash 1.6s linear both;
+}
+.clash-spark__ray {
+  stroke: var(--c-marigold);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+@keyframes spark-flash {
+  0%, 18%  { opacity: 0; transform: scale(0.2); }
+  22%      { opacity: 1; transform: scale(1.15); } /* clink #1 flash */
+  30%, 58% { opacity: 0; transform: scale(0.2); }
+  62%      { opacity: 1; transform: scale(1.3); }  /* clink #2 flash */
+  74%,100% { opacity: 0; transform: scale(0.2); }
+}
+
+/* ============ Scene 3: chess knight ============ */
+.board__square--dark  { fill: var(--c-maroon); }
+.board__square--light { fill: var(--c-paper); stroke: var(--c-maroon); stroke-width: 1; }
+
+/* The ♞ glyph hops across the board in little arcs */
+.knight {
+  font-size: 44px;
+  fill: var(--c-red);
+  animation: knight-hop 1.5s ease-in-out both;
+}
+@keyframes knight-hop {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(28px, -26px); }  /* jump apex */
+  35%  { transform: translate(56px, 0); }      /* land 2 squares over */
+  55%  { transform: translate(84px, -26px); }
+  70%  { transform: translate(112px, 0); }     /* final landing */
+  78%  { transform: translate(112px, 4px); }   /* tiny squash on landing */
+  100% { transform: translate(112px, 0); }
+}
+
+/* ============ Caption + progress dots ============ */
+.loader__meta {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+}
+.loader__caption {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+  animation: caption-pulse 1.4s ease-in-out infinite;
+}
+@keyframes caption-pulse {
+  50% { opacity: 0.45; }
+}
+.loader__dots {
+  display: flex;
+  gap: 8px;
+}
+.loader__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(142, 31, 31, 0.25);
+  transition: background 0.3s ease, transform 0.3s var(--ease-bounce);
+}
+.loader__dot--active {
+  background: var(--c-red);
+  transform: scale(1.35);
+}
+
+/* ============ Finale: title ============ */
+.loader__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 9vw, 6rem);
+  line-height: 1;
+  color: var(--c-red);
+  text-shadow: var(--glow-text);
+  animation: title-bounce 0.6s var(--ease-bounce) both;
+}
+.loader__title span {
+  display: block;
+  color: var(--c-teal);
+}
+@keyframes title-bounce {
+  from { opacity: 0; transform: translateY(60px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.loader__tagline {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  color: var(--c-ink-soft);
+  animation: stage-in 0.6s 0.25s ease both;
+}

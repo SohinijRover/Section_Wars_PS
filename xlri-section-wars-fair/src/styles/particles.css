@@ -1,0 +1,8 @@
+/* Fixed full-screen canvas of floating embers.
+   Sits above the smoke layer but below all content. */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}

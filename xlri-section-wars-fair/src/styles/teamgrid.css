@@ -1,0 +1,156 @@
+/* ============================================================
+   TEAM GRID — Fair edition (shared by BM & HRM)
+   Cards styled like fairground ticket stubs / photo booths.
+   ============================================================ */
+.team-grid {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--section-pad);
+}
+
+.team-grid__header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.team-grid__eyebrow {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  margin-bottom: 0.8rem;
+}
+
+.team-grid__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  color: var(--c-red);
+  text-shadow: var(--glow-text);
+}
+
+/* Responsive columns without media queries (auto-fit + minmax) */
+.team-grid__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+  justify-items: center;
+}
+
+/* ---------- Card ---------- */
+.team-card {
+  width: 100%;
+  max-width: 300px;
+}
+
+.team-card__frame {
+  position: relative;
+  aspect-ratio: 1 / 1;                       /* square photo card */
+  border: 3px solid var(--c-maroon);
+  border-radius: var(--radius);
+  background: var(--c-paper);
+  overflow: hidden;
+  box-shadow: 0 6px 0 rgba(142, 31, 31, 0.25);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease,
+    transform 0.35s var(--ease-bounce);
+}
+
+/* Placeholder face — swap this for your team <img> later */
+.team-card__photo {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.4rem;
+  text-align: center;
+  /* Circus-tent stripes in soft cream/red */
+  background:
+    radial-gradient(circle at 50% 30%, rgba(245, 166, 35, 0.28), transparent 60%),
+    repeating-linear-gradient(45deg, #fdeedd 0 14px, #fff8ec 14px 28px);
+  transition: transform 0.6s var(--ease-cinematic);
+}
+
+.team-card__letter {
+  font-family: var(--font-display);
+  font-size: clamp(4.2rem, 9vw, 6rem);
+  line-height: 1;
+  color: var(--c-red);
+  text-shadow: 3px 3px 0 var(--c-marigold);
+}
+
+.team-card__hint {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+}
+
+/* ---------- Hover choreography ---------- */
+@media (hover: hover) {
+  .team-card__frame:hover {
+    border-color: var(--c-marigold);
+    box-shadow: var(--glow-strong);          /* marigold ring + warm shadow */
+    transform: translateY(-8px) rotate(-1.2deg); /* playful tilt */
+  }
+  .team-card__frame:hover .team-card__photo {
+    transform: scale(1.07);
+  }
+  .team-card__frame:hover .team-card__corner {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .team-card:hover .team-card__section::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Confetti-dot corners that pop in on hover (replaces sniper brackets) */
+.team-card__corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-bounce);
+  pointer-events: none;
+}
+.team-card__corner--tl {
+  top: 12px; left: 12px;
+  background: var(--c-teal);
+}
+.team-card__corner--br {
+  bottom: 12px; right: 12px;
+  background: var(--c-red);
+}
+
+/* ---------- Label under the photo ---------- */
+.team-card__label {
+  margin-top: 0.9rem;
+  text-align: center;
+}
+.team-card__section {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+}
+.team-card__section::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--c-marigold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-bounce);
+}

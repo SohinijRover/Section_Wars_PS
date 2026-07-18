@@ -1,0 +1,150 @@
+/* ============================================================
+   HERO — cinematic full-screen opener with mouse parallax
+   ============================================================ */
+.hero {
+  --mx: 0; /* set by useMouseParallax (-1 … 1) */
+  --my: 0;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh; /* mobile-safe viewport */
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Ambient red glow behind the title — deepest parallax layer */
+.hero__glow {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(122, 0, 0, 0.4), transparent 60%);
+  filter: blur(40px);
+  transform: translate(calc(var(--mx) * -30px), calc(var(--my) * -30px));
+  transition: transform 0.25s ease-out;
+  animation: glow-breathe 6s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes glow-breathe {
+  50% { opacity: 0.65; }
+}
+
+/* Content layer — subtle counter-movement for depth */
+.hero__content {
+  position: relative;
+  transform: translate(calc(var(--mx) * 14px), calc(var(--my) * 14px));
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+  padding: 0 1rem;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-accent);
+  font-size: clamp(0.75rem, 1.6vw, 1rem);
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  animation: rise-in 0.9s var(--ease-cinematic) 0.1s both;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 17vw, 13rem);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  margin: 1.2rem 0;
+}
+.hero__title-line {
+  display: block;
+  animation: rise-in 1s var(--ease-cinematic) 0.3s both;
+}
+.hero__title-line--red {
+  color: var(--c-ember);
+  text-shadow: var(--glow-text);
+  animation-delay: 0.5s;
+  /* Slow flicker like a neon cantina sign */
+  animation: rise-in 1s var(--ease-cinematic) 0.5s both,
+             neon-flicker 5s linear 2s infinite;
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes neon-flicker {
+  0%, 91%, 95%, 100% { opacity: 1; }
+  93% { opacity: 0.55; } /* brief dip → feels like faulty neon */
+}
+
+.hero__subtitle {
+  font-weight: 300;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  animation: rise-in 0.9s var(--ease-cinematic) 0.75s both;
+}
+
+/* ---------- Shared cartel CTA button ---------- */
+.btn-cartel {
+  margin-top: 2.6rem;
+  padding: 1rem 2.8rem;
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-white);
+  border: 1px solid var(--c-crimson);
+  background: linear-gradient(180deg, rgba(122, 0, 0, 0.25), rgba(0, 0, 0, 0.6));
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+  animation: rise-in 0.9s var(--ease-cinematic) 0.95s both;
+}
+/* Sweeping light reflection across the button */
+.btn-cartel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.18) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+.btn-cartel:hover {
+  box-shadow: var(--glow-strong);
+  transform: translateY(-2px);
+}
+.btn-cartel:hover::before {
+  transform: translateX(120%);
+}
+.btn-cartel:focus-visible {
+  outline: 2px solid var(--c-ember);
+  outline-offset: 4px;
+}
+
+/* ---------- Scroll hint ---------- */
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  animation: rise-in 1s ease 1.6s both;
+}
+.hero__scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(var(--c-crimson), transparent);
+  animation: scroll-pulse 1.8s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  50% { transform: scaleY(0.55); transform-origin: top; opacity: 0.5; }
+}
